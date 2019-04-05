@@ -1,0 +1,15 @@
+<section fxLayout="column" fxLayoutAlign="center center">
+  <h1 mat-dialog-title>Success message</h1>
+  <div mat-dialog-content *ngIf="data.type === 'warn'">
+      {{data.message}}
+    </div>
+    <div mat-dialog-content *ngIf="data.type === 'success'">
+      {{data.message}}
+    </div>
+    <div mat-dialog-content  *ngIf="data.type === 'danger'">
+      {{data.message}}
+    </div>
+  <mat-dialog-actions>
+    <button mat-raised-button color="primary" [mat-dialog-close]="true">OK</button>
+  </mat-dialog-actions>
+</section>

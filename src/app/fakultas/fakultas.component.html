@@ -1,0 +1,67 @@
+<mat-toolbar>Fakultas Form</mat-toolbar>
+<form [formGroup]="fakultasForm">
+  <mat-card>
+    <div class="row">
+      <div class="col-md-1">
+        <mat-form-field class="mat-input-wrapper">
+          <input matInput type="text" placeholder="id" formControlName="id">
+          <mat-error *ngIf="hasError('id', 'required')">id is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-2">
+        <mat-form-field class="mat-input-wrapper">
+          <input matInput type="text" placeholder="Kode Fakultas" formControlName="codeFakultas">
+          <mat-error *ngIf="hasError('codeFakultas', 'required')">Kode Fakultas is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <mat-form-field class="mat-input-wrapper">
+          <input matInput type="text" placeholder="Nama Fakultas" formControlName="namaFakultas">
+          <mat-error *ngIf="hasError('namaFakultas', 'required')">Nama Fakultas is required</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <mat-form-field class="mat-input-wrapper">
+          <textarea matInput placeholder="Textarea" placeholder="description" formControlName="description"></textarea>
+          <mat-error *ngIf="hasError('description', 'required')">Description is required</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4">
+        <button mat-raised-button color="primary" (click)="saveFakultas()">
+          <mat-icon>save</mat-icon> Save
+        </button>
+        <button mat-raised-button color="warn" (click)="onReset()">
+          <mat-icon>refresh</mat-icon> Reset
+        </button>
+      </div>
+    </div>
+  </mat-card>
+</form>
+
+<mat-card>
+  <mat-accordion>
+    <mat-expansion-panel *ngFor="let a of listFakultas">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{a.id}}
+        </mat-panel-title>
+        <mat-panel-description>
+          {{a.codeFakultas}}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <h5>{{a.namaFakultas}}</h5>
+      <p >{{a.description}}</p>
+      <!-- <button mat-raised-button color="warn" (click)="onReset()">
+        <mat-icon>refresh</mat-icon> Ubah
+      </button> -->
+      <button mat-icon-button color="warn" (click)="deleteFakultas(a.id);">
+        <mat-icon>delete</mat-icon> Hapus
+      </button>
+    </mat-expansion-panel>
+  </mat-accordion>
+</mat-card>

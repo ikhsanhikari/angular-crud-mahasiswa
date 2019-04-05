@@ -1,0 +1,76 @@
+<mat-toolbar>Jurusan Form</mat-toolbar>
+<form [formGroup]="jurusanForm">
+  <mat-card>
+    <div class="row">
+      <div class="col-md-1">
+        <mat-form-field class="mat-input-wrapper">
+          <input matInput type="text" placeholder="id" formControlName="id">
+          <mat-error *ngIf="hasError('id', 'required')">id is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-2">
+        <mat-form-field class="mat-input-wrapper">
+          <input matInput type="text" placeholder="Kode Jurusan" formControlName="codeJurusan">
+          <mat-error *ngIf="hasError('codeJurusan', 'required')">Kode Jurusan is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <mat-form-field class="mat-input-wrapper">
+          <input matInput type="text" placeholder="Nama Jurusan" formControlName="namaJurusan">
+          <mat-error *ngIf="hasError('namaJurusan', 'required')">Nama Jurusan is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field class="mat-input-wrapper">
+          <mat-select placeholder="Fakultas" formControlName="codeFakultas">
+            <mat-option *ngFor="let f of listFakultas" value="{{f.codeFakultas}}">{{f.namaFakultas}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="hasError('codeFakultas', 'required')">Kode Fakultas is required</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <mat-form-field class="mat-input-wrapper">
+          <textarea matInput placeholder="Textarea" placeholder="description" formControlName="description"></textarea>
+          <mat-error *ngIf="hasError('description', 'required')">Description is required</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4">
+        <button mat-raised-button color="primary" (click)="saveJurusan()">
+          <mat-icon>save</mat-icon> Save
+        </button>
+        <button mat-raised-button color="warn" (click)="onReset()">
+          <mat-icon>refresh</mat-icon> Reset
+        </button>
+      </div>
+    </div>
+  </mat-card>
+</form>
+
+<mat-card>
+  <mat-accordion>
+    <mat-expansion-panel *ngFor="let a of listJurusan">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{a.id}}
+        </mat-panel-title>
+        <mat-panel-description>
+          {{a.codeJurusan}}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <h5>{{a.codeFakultas}}</h5>
+      <h5>{{a.namaJurusan}}</h5>
+      <p >{{a.description}}</p>
+      <!-- <button mat-raised-button color="warn" (click)="onReset()">
+        <mat-icon>refresh</mat-icon> Ubah
+      </button> -->
+      <button mat-icon-button color="warn" (click)="deleteJurusan(a.id);">
+        <mat-icon>delete</mat-icon> Hapus
+      </button>
+    </mat-expansion-panel>
+  </mat-accordion>
+</mat-card>

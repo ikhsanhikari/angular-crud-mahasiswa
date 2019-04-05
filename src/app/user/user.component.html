@@ -1,0 +1,142 @@
+<mat-toolbar>User Form</mat-toolbar>
+<!-- <div class="container"> -->
+<form [formGroup]="userForm">
+  <mat-card>
+    <div class="row">
+      <div class="col-md-4">
+        <mat-form-field class="mat-input-wrapper">
+          <input matInput type="text" placeholder="Name" formControlName="name">
+          <mat-hint align="end">Not more then 100 characters long.</mat-hint>
+          <mat-error *ngIf="hasError('name', 'required')">Name is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field class="mat-input-wrapper">
+          <input matInput type="text" placeholder="Username" formControlName="username">
+          <mat-error *ngIf="hasError('username', 'required')">UserName is required</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4">
+        <mat-form-field class="mat-input-wrapper">
+          <mat-select placeholder="Role" formControlName="role">
+            <mat-option value="Admin">Admin</mat-option>
+            <mat-option value="User">User</mat-option>
+          </mat-select>
+          <mat-error *ngIf="hasError('role', 'required')">Role is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field class="mat-input-wrapper">
+          <input matInput [matDatepicker]="picker" placeholder="Birth Day" formControlName="birth">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error *ngIf="hasError('birth', 'required')">Birth is required</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <mat-form-field class="mat-input-wrapper">
+          <textarea matInput placeholder="Textarea" placeholder="Address" formControlName="address"></textarea>
+          <mat-error *ngIf="hasError('address', 'required')">Address is required</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <button mat-raised-button color="primary" (click)="save()">
+          <mat-icon>save</mat-icon> Save
+        </button>
+        <button mat-raised-button color="warn" (click)="onReset()">
+          <mat-icon>refresh</mat-icon> Reset
+        </button>
+      </div>
+    </div>
+  </mat-card>
+</form>
+<!-- </div> -->
+<br>
+<mat-toolbar>User Table</mat-toolbar>
+
+<mat-card>
+  <form [formGroup]="searchForm">
+    <div class="row">
+      <div class="col-md-2">
+        <mat-form-field class="mat-input-wrapper">
+          <input matInput type="text" placeholder="Filter" (keyup)="doFilter($event.target.value)" formControlName="search">
+        </mat-form-field>
+      </div>
+      <!-- <div class="col-md-2">
+        <button mat-raised-button color="primary"  (click)="getById()">
+          <mat-icon>search</mat-icon> Search
+        </button>
+      </div> -->
+      <div class="col-md-6 ">
+          <button mat-raised-button color="primary" class="pull-right" (click)="getUser()">
+              <mat-icon>search</mat-icon> Refresh
+          </button>
+      </div>
+    </div>
+  </form>
+
+  <div class="row ">
+    <table mat-table [dataSource]="dataSource" matSort class="mat-input-wrapper" >
+      <!-- Position Column -->
+      <ng-container matColumnDef="position">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> No. </th>
+        <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="address">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Addres </th>
+        <td mat-cell *matCellDef="let element"> {{element.address}} </td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="birth">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Birth Day </th>
+        <td mat-cell *matCellDef="let element"> {{element.birth | date:'dd-MM-yyyy'}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="role">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Role </th>
+        <td mat-cell *matCellDef="let element"> {{element.role}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="username">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Username </th>
+        <td mat-cell *matCellDef="let element"> {{element.username}} </td>
+      </ng-container>
+      <ng-container matColumnDef="delete">
+        <th mat-header-cell *matHeaderCellDef> Action </th>
+        <td mat-cell *matCellDef="let element">
+            <button mat-icon-button  color="warn">
+                <mat-icon>details</mat-icon>
+              </button>
+          <button mat-icon-button (click)="onselect(element)" color="primary">
+            <mat-icon>system_update</mat-icon>
+          </button>
+          <button mat-icon-button (click)="deleteUser(element)" color="warn">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator [length]="100"
+              [pageSize]="10"
+              [pageSizeOptions]="[5, 10, 25, 100]">
+    </mat-paginator>
+  </div>
+</mat-card>

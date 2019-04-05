@@ -1,0 +1,26 @@
+[
+    {
+        "position": 1,
+        "name": "Nurikhsan",
+        "address": "Cirebon",
+        "birth": "2018-09-02",
+        "role": "User",
+        "username": "hikari29"
+    },
+    {
+        "position": 2,
+        "name": "Hikari",
+        "address": "Tokyo",
+        "birth": "2019-09-02",
+        "role": "Admin",
+        "username": "hikari"
+    },
+    {
+        "position": 3,
+        "name": "Hikari Ikhsan",
+        "address": "Jakarta",
+        "birth": "1990-09-02",
+        "role": "User",
+        "username": "hikari"
+    }
+]

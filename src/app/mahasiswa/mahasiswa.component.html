@@ -1,0 +1,279 @@
+<mat-toolbar>Jurusan Form</mat-toolbar>
+<form [formGroup]="mahasiswaForm">
+  <mat-card>
+    <div class="row">
+      <div class="col-md-1">
+        <mat-form-field class="mat-input-wrapper">
+          <input matInput type="text" placeholder="id" formControlName="id">
+          <mat-error *ngIf="hasError('id', 'required')">id is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-2">
+        <mat-form-field class="mat-input-wrapper">
+          <input matInput type="text" placeholder="Nim" formControlName="nim">
+          <mat-error *ngIf="hasError('nim', 'required')">Nim is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <mat-form-field class="mat-input-wrapper">
+          <input matInput type="text" placeholder="Nama Belakang" formControlName="namaBelakang">
+          <mat-error *ngIf="hasError('namaBelakang', 'required')">Nama Belakang is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <mat-form-field class="mat-input-wrapper">
+          <input matInput type="text" placeholder="Nama Depan" formControlName="namaDepan">
+          <mat-error *ngIf="hasError('namaDepan', 'required')">Nama Depan is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <mat-form-field class="mat-input-wrapper">
+          <mat-select placeholder="Golongan Darah" formControlName="golonganDarah">
+            <mat-option value="A">A</mat-option>
+            <mat-option value="B">B</mat-option>
+            <mat-option value="O">O</mat-option>
+            <mat-option value="AB">AB</mat-option>
+          </mat-select>
+          <mat-error *ngIf="hasError('statusPernikahan', 'required')">Status Penikahan is required</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <mat-form-field class="mat-input-wrapper">
+          <input matInput [matDatepicker]="picker" placeholder="Tanggal Lahir" formControlName="tanggalLahir">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error *ngIf="hasError('tanggalLahir', 'required')">Tanggal Lahir is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <mat-form-field class="mat-input-wrapper">
+          <mat-select placeholder="Fakultas" formControlName="fakultas" (selectionChange)="getJurusan($event.value)">
+            <mat-option *ngFor="let f of listFakultas" value="{{f.codeFakultas}}">{{f.namaFakultas}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="hasError('fakultas', 'required')">Fakultas is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <mat-form-field class="mat-input-wrapper">
+          <mat-select placeholder="Jurusan" formControlName="jurusan" [disabled]="statusJurusan==false">
+            <mat-option *ngFor="let f of listJurusan" value="{{f.codeJurusan}}">{{f.namaJurusan}}</mat-option>
+          </mat-select>
+          <mat-hint align="end">Akan terisi jika sudah memilih fakultas</mat-hint>
+          <mat-error *ngIf="hasError('jurusan', 'required')">Jurusan is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <mat-form-field class="mat-input-wrapper">
+          <mat-select placeholder="Status Pernikahan" formControlName="statusPernikahan">
+            <mat-option value="sudah">Sudah Menikah</mat-option>
+            <mat-option value="belum">Belum Menikah</mat-option>
+          </mat-select>
+          <mat-error *ngIf="hasError('statusPernikahan', 'required')">Status Penikahan is required</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <mat-form-field class="mat-input-wrapper">
+          <mat-select placeholder="Provinsi" formControlName="provinsi" (selectionChange)="getKota($event.value)">
+            <mat-option  *ngFor="let f of listProvinsi" value="{{f.id}}">{{f.name}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="hasError('provinsi', 'required')">Negara is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <mat-form-field class="mat-input-wrapper">
+          <mat-select placeholder="kota" formControlName="kota" (selectionChange)="getKecamatan($event.value)">
+            <mat-option *ngFor="let f of listKota" value="{{f.id}}">{{f.name}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="hasError('kota', 'required')">Kota is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <mat-form-field class="mat-input-wrapper">
+          <mat-select placeholder="Kecamatan" formControlName="kecamatan" (selectionChange)="getDesa($event.value)">
+              <mat-option *ngFor="let f of listKecamatan" value="{{f.id}}">{{f.name}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="hasError('kecamatan', 'required')">Kecamatan is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <mat-form-field class="mat-input-wrapper">
+          <mat-select placeholder="Desa" formControlName="desa">
+              <mat-option *ngFor="let f of listDesa" value="{{f.id}}">{{f.name}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="hasError('desa', 'required')">Blok is required</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <mat-form-field class="mat-input-wrapper">
+          <input matInput type="text" placeholder="Nama Ayah" formControlName="namaAyah">
+          <mat-error *ngIf="hasError('namaAyah', 'required')">Nama Ayah is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <mat-form-field class="mat-input-wrapper">
+          <input matInput type="text" placeholder="Pekerjaan Ayah" formControlName="pekerjaanAyah">
+          <mat-error *ngIf="hasError('pekerjaanAyah', 'required')">Pekerjaan Ayah is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <mat-form-field class="mat-input-wrapper">
+          <input matInput type="number" placeholder="Penghasilan Ayah" formControlName="pendapatanAyahPerBulan">
+          <mat-error *ngIf="hasError('pendapatanAyahPerBulan', 'required')">Penghasilan Ayah is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-2">
+        <mat-form-field class="mat-input-wrapper">
+          <input matInput type="number" placeholder="Jumlah Sodara" formControlName="jumlahSodara">
+          <mat-error *ngIf="hasError('jumlahSodara', 'required')">Jumlah Sodara is required</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <mat-form-field class="mat-input-wrapper">
+          <input matInput type="text" placeholder="Nama Ibu" formControlName="namaIbu">
+          <mat-error *ngIf="hasError('namaIbu', 'required')">Nama Ibu is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <mat-form-field class="mat-input-wrapper">
+          <input matInput type="text" placeholder="Pekerjaan Ibu" formControlName="pekerjaanIbu">
+          <mat-error *ngIf="hasError('pekerjaanIbu', 'required')">Pekerjaan Ibu is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <mat-form-field class="mat-input-wrapper">
+          <input matInput type="number" placeholder="Penghasilan Ibu" formControlName="pendapatanIbuPerBulan">
+          <mat-error *ngIf="hasError('pendapatanIbuPerBulan', 'required')">Penghasilan Ibu is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-2">
+        <mat-form-field class="mat-input-wrapper">
+          <input matInput type="number" placeholder="Angkatan Ke" formControlName="angkatanKe">
+          <mat-error *ngIf="hasError('angkatanKe', 'required')">Angkatan ke is required</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <!-- <div class="row">
+      <div class="col-md-6">
+        <mat-form-field class="mat-input-wrapper">
+          <textarea matInput placeholder="Textarea" placeholder="description" formControlName="description"></textarea>
+          <mat-error *ngIf="hasError('description', 'required')">Description is required</mat-error>
+        </mat-form-field>
+      </div>
+    </div> -->
+
+    <div class="row">
+      <div class="col-md-4">
+        <button mat-raised-button color="primary" (click)="save()">
+          <mat-icon>save</mat-icon> Save
+        </button>
+        <button mat-raised-button color="warn" (click)="onReset()">
+          <mat-icon>refresh</mat-icon> Reset
+        </button>
+      </div>
+    </div>
+  </mat-card>
+</form>
+
+<mat-card>
+  <mat-accordion>
+    <mat-expansion-panel *ngFor="let a of listMahasiswa">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{a.nim}}
+        </mat-panel-title>
+        <mat-panel-description>
+          {{a.namaDepan}} {{a.namaBelakang}}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <h5>{{a.namaDepan}} {{a.namaBelakang}}</h5>
+      <div class="row">
+        <div class="col-md-5">
+          <table>
+            <tr>
+              <td>Nama Ayah</td>
+              <td>:</td>
+              <td style="font-weight: bold">{{a.namaAyah}}</td>
+            </tr>
+            <tr>
+              <td>Pekerjaan Ayah</td>
+              <td>:</td>
+              <td style="font-weight: bold">{{a.pekerjaanAyah}}</td>
+            </tr>
+            <tr>
+              <td>Pendapatan Ayah per bulan</td>
+              <td>:</td>
+              <td style="font-weight: bold">{{a.pendapatanAyahPerBUlan}}</td>
+            </tr>
+            <tr>
+              <td>Nama Ibu</td>
+              <td>:</td>
+              <td style="font-weight: bold">{{a.namaIbu}}</td>
+            </tr>
+            <tr>
+              <td>Pekerjaan Ibu</td>
+              <td>:</td>
+              <td style="font-weight: bold">{{a.pekerjaanIbu}}</td>
+            </tr>
+            <tr>
+              <td>Pendapatan Ibu per bulan</td>
+              <td>:</td>
+              <td style="font-weight: bold">{{a.pendapatanIbuPebulan}}</td>
+            </tr>
+            <tr>
+          </table>
+        </div>
+        <div class="col-md-5">
+          <table>
+            <tr>
+              <td>Alamat</td>
+              <td>:</td>
+              <td style="font-weight: bold">{{a.negara}},Kota. {{a.kota}}, Desa. {{a.desa}}, Blok. {{a.blok}}, RT/RW. {{a.rt}}/{{a.rw}}</td>
+            </tr>
+            <tr>
+              <td>Jumlah Sodara</td>
+              <td>:</td>
+              <td style="font-weight: bold">{{a.jumlahSodara}} Sodara</td>
+            </tr>
+            <tr>
+              <td>Jurusan</td>
+              <td>:</td>
+              <td style="font-weight: bold">{{a.jurusan}}</td>
+            </tr>
+            <tr>
+              <td>Fakultas</td>
+              <td>:</td>
+              <td style="font-weight: bold">{{a.fakultas}}</td>
+            </tr>
+            <tr>
+              <td>Golongan Darah</td>
+              <td>:</td>
+              <td style="font-weight: bold">{{a.golonganDarah}}</td>
+            </tr>
+            <tr>
+              <td>Angkatan Ke </td>
+              <td>:</td>
+              <td style="font-weight: bold">{{a.angkatanKe}}</td>
+            </tr>
+            <tr>
+          </table>
+        </div>
+      </div>
+
+
+      <!-- <button mat-raised-button color="warn" (click)="onReset()">
+        <mat-icon>refresh</mat-icon> Ubah
+      </button> -->
+      <button mat-icon-button color="warn" (click)="deleteMahasiswa(a.id);">
+        <mat-icon>delete</mat-icon> Hapus
+      </button>
+    </mat-expansion-panel>
+  </mat-accordion>
+</mat-card>
