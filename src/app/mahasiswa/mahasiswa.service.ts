@@ -17,12 +17,12 @@ import { desa } from './desa';
 export class mahasiswaService { 
     constructor(private http : HttpClient){}
 
-    url = "http://localhost:8080/mahasiswa";
-    urlProvinsi = "http://localhost:8080/provinsi";
-    urlKota = "http://localhost:8080/kota";
-    urlKecamatan = "http://localhost:8080/kecamatan";
-    urlJurusan = "http://localhost:8080/jurusan";
-    urlDesa = "http://localhost:8080/desa";
+    url = "http://192.168.195.126:8080/mahasiswa";
+    urlProvinsi = "http://192.168.195.126:8080/provinsi";
+    urlKota = "http://192.168.195.126:8080/kota";
+    urlKecamatan = "http://192.168.195.126:8080/kecamatan";
+    urlJurusan = "http://192.168.195.126:8080/jurusan";
+    urlDesa = "http://192.168.195.126:8080/desa";
 
     getmahasiswa(): Observable<mahasiswa[]> {
         return this.http.get<mahasiswa[]>(this.url+"/findAll")
