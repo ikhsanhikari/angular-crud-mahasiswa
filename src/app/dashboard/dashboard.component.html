@@ -1,20 +1,41 @@
 <mat-toolbar>Dashboard Page</mat-toolbar>
-<!-- <div class="row">
-  <div class="col-md-12">
-    <mat-card>Hikari App</mat-card>
-    <button mat-raised-button class="sdw-btn-warning" (click)="test.show()">Modal</button>
+<br><br>
+<div class="container"
+     fxLayout
+     fxLayout.xs="column"
+     fxLayoutAlign="center"
+     fxLayoutGap="10px"
+     fxLayoutGap.xs="0">
+  <div class="item item-1" fxFlex="30%">
+    <a routerLink="/mahasiswa">
+      <mat-card> <h6><mat-icon>person</mat-icon> <br> Mahasiswa</h6></mat-card>
+    </a>
   </div>
+  <div class="item item-2" fxFlex="5%" ></div>
+  <div class="item item-1" fxFlex="30%">
+    <a routerLink="/jurusan">
+      <mat-card> <h6><mat-icon>store</mat-icon> <br> Jurusan</h6></mat-card>
+    </a>
+  </div>
+  <div class="item item-2" fxFlex="5%" ></div>
+  <div class="item item-1" fxFlex="30%">
+    <a routerLink="/fakultas">
+      <mat-card> <h6><mat-icon>store</mat-icon> <br> Fakultas</h6></mat-card>
+    </a>
+  </div>
+</div>
+<br>
+<!-- <div class="container"
+     fxLayout
+     fxLayout.xs="column"
+     fxLayoutAlign="center"
+     fxLayoutGap="10px"
+     fxLayoutGap.xs="0">
+  <div class="item item-1" fxFlex="30%">
+    <mat-card>Item 1</mat-card>
+  </div>
+  <div class="item item-2" fxFlex="5%" ></div>
+  <div class="item item-2" fxFlex="30%" ><mat-card> Item 2</mat-card></div>
+  <div class="item item-2" fxFlex="5%" ></div>
+  <div class="item item-2" fxFlex="30%" ><mat-card>Item </mat-card></div>
 </div> -->
-
-<!-- <app-hikari-modal #test style="overflow-y: scroll">
-    <div class="hikari-modal-header">
-    </div>
-    <div class="hikari-modal-body"  >
-        <app-sidebar></app-sidebar>
-    </div>
-    <div class="hikari-modal-footer">
-      <div class="pull-right">
-          <button mat-raised-button class="sdw-btn-warning" (click)="test.hide()">Batal</button>
-      </div>
-    </div>
-</app-hikari-modal> -->
