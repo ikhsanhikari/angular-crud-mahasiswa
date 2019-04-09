@@ -12,7 +12,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class JurusanService { 
     constructor(private http : HttpClient){}
 
-    url = "http://localhost:8080/jurusan";
+    url = "http://192.168.195.126:8080/jurusan";
 
     getjurusan(): Observable<jurusan[]> {
         return this.http.get<jurusan[]>(this.url+"/findAll")

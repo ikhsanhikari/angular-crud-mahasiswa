@@ -12,7 +12,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class UserService { 
     constructor(private http : HttpClient){}
 
-    url = "http://localhost:8080/user";
+    url = "http://192.168.195.126:8080/user";
 
     getUser(): Observable<user[]> {
         return this.http.get<user[]>(this.url+"/findAll")

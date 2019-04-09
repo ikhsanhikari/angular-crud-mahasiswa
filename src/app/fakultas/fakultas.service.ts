@@ -12,7 +12,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class FakultasService { 
     constructor(private http : HttpClient){}
 
-    url = "http://localhost:8080/fakultas";
+    url = "http://192.168.195.126:8080/fakultas";
 
     getfakultas(): Observable<fakultas[]> {
         return this.http.get<fakultas[]>(this.url+"/findAll")
